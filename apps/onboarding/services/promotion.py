@@ -66,7 +66,7 @@ def promote_onboarding(onboarding_id: uuid.UUID) -> Client:
 
         Domain.objects.create(
             tenant=tenant,
-            domain=f"{schema_name}.8c69a3ad3a25.ngrok-free.app",
+            domain=f"{schema_name}.shogun-backend-6mov.onrender.com",
             is_primary=True,
         )
 
