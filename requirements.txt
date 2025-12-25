@@ -19,6 +19,7 @@ drf-standardized-errors==0.15.0
 Faker==39.0.0
 fonttools==4.61.1
 fpdf2==2.8.5
+gunicorn==23.0.0
 idna==3.11
 inflection==0.5.1
 jsonschema==4.25.1
@@ -26,6 +27,7 @@ jsonschema-specifications==2025.9.1
 Markdown==3.10
 oauthlib==3.3.1
 ofxtools==0.9.5
+packaging==25.0
 pillow==12.0.0
 psycopg2-binary==2.9.11
 pycparser==2.23
