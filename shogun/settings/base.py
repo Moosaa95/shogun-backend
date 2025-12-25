@@ -74,6 +74,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # CORS must be first to handle preflight requests
     "django_tenants.middleware.main.TenantMainMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -227,6 +228,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "https://shogun-three.vercel.app",
     "https://8c69a3ad3a25.ngrok-free.app",
+    "https://shogun-backend-6mov.onrender.com",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -240,6 +242,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "https://shogun-three.vercel.app",
     "https://8c69a3ad3a25.ngrok-free.app",
+    "https://shogun-backend-6mov.onrender.com",
 ]
 
 # Allow all HTTP methods
@@ -286,6 +289,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
