@@ -7,13 +7,14 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from identity.utils import set_auth_cookies
+from identity.serializers import CustomTokenObtainPairSerializer
 
 # Create your views here.
 
 
 class CustomTokenObtainView(TokenObtainPairView):
 
-    # serializer_class = CustomTokenObtainPairSerializer
+    serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -25,7 +26,6 @@ class CustomTokenObtainView(TokenObtainPairView):
             if access_token and refresh_token:
                 set_auth_cookies(response, access_token, refresh_token)
 
-            response.data["status"] = True
         return response
 
 
