@@ -20,15 +20,19 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
-load_dotenv(BASE_DIR / "envs/.env")
+env_path = BASE_DIR / ".env"
+
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)(z@k_49_)0uybr0f4ykjq92+!^unaaeksk0x1z@l$thw^q_)l"
+# SECRET_KEY = ""
 
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -68,8 +72,8 @@ INSTALLED_APPS = list(SHARED_APPS) + [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  # CORS must be first to handle preflight requests
     "django_tenants.middleware.main.TenantMainMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # Must be before CommonMiddleware
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -221,10 +225,22 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:8000",
+    "https://shogun-three.vercel.app",
+    "https://8c69a3ad3a25.ngrok-free.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF Trusted Origins (required for HTTPS origins like ngrok)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3002",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:8000",
+    "https://shogun-three.vercel.app",
+    "https://8c69a3ad3a25.ngrok-free.app",
+]
 
 # Allow all HTTP methods
 CORS_ALLOW_METHODS = [
@@ -247,6 +263,7 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+    "ngrok-skip-browser-warning",  # Allow ngrok warning bypass
 ]
 
 # Preflight cache duration
